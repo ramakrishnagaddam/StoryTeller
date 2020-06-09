@@ -1,0 +1,22 @@
+<br/>
+<button class="btn btn-success" [routerLink]="'story'">Create New Story</button>
+<br/><br/>
+<div class="row">
+  <div class="col-md-4" *ngFor="let value of data">
+    <a [routerLink]="value._id" class="text-decoration-none">
+      <div class="card">
+        <div class="card-header">
+          <audio controls>
+            <source src="{{apiURL}}/{{value.storyURL}}" type="audio/mpeg">
+            Your browser does not support the audio tag.
+          </audio>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{value.storyName}}</h5>
+          <p class="card-text">{{value.storyDesc}}</p>
+          <p class="card-text">Credits: {{value.credits}}</p>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
