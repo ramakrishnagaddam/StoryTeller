@@ -1,17 +1,21 @@
 <br/>
-<button class="btn btn-success" [routerLink]="'category'">Create New Category</button>
+<button class="btn btn-success" (click)="addCategory()">Create New Category</button>
 <br/><br/>
 <div class="row">
   <div class="col-md-4" *ngFor="let value of data">
+    <div class="card-header">
+      {{value.categoryName}}
+<button class="btn btn-success" (click)="editCategory(value)">Edit</button>
+    </div>
     <a [routerLink]="value._id" class="text-decoration-none">
       <div class="card">
         <img class="card-img-top" src="{{apiURL}}/{{value.categoryImageURL}}" alt="Card image cap">
         <div class="card-body">
-          <h5 class="card-title">{{value.categoryName}}<br><sub>{{value.subtitle}}</sub></h5>
-
+          <h5 class="card-title"><sub>{{value.subtitle}}</sub></h5>
           <p class="card-text">{{value.categoryDesc}}</p>
         </div>
       </div>
     </a>
   </div>
 </div>
+

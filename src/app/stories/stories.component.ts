@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonApiService } from '../common-api.service';
 import { environment } from '../../environments/environment';
+import {CommonObjectService} from '../common/commonObject.service';
 
 @Component({
   selector: 'app-stories',
@@ -13,7 +13,18 @@ export class StoriesComponent implements OnInit {
 
   data: any;
   apiURL: string = environment.API;
-  constructor(private api:CommonApiService, private route: ActivatedRoute ) { }
+  constructor(private api:CommonApiService, private route: ActivatedRoute, private commonObjectServiceObject:CommonObjectService, private router: Router ) { }
+
+  editStory(formData) {
+
+    this.commonObjectServiceObject.data = formData;
+    this.router.navigate([this.route.snapshot.params.categoryID+'/'+this.route.snapshot.params.volumeID+'/story']);
+  }
+
+  addStory() {
+    this.commonObjectServiceObject.data = null;
+    this.router.navigate([this.route.snapshot.params.categoryID+'/'+this.route.snapshot.params.volumeID+'/story']);
+  }
 
   ngOnInit(): void {
     const categoryID = this.route.snapshot.params.categoryID;
@@ -37,3 +48,4 @@ export class StoriesComponent implements OnInit {
   }
 
 }
+
