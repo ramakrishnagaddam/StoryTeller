@@ -25,10 +25,21 @@ export class CommonApiService {
     return this.httpClient.put<any>(`${this.AUTH_SERVER}/${url}`, data);
   }
 
+  update(url: string, data: FormData) {
+    return this.httpClient.post<any>(`${this.AUTH_SERVER}/${url}`, data);
+  }
+
   createByJson(url: string, data: any) {
     const headers = new HttpHeaders()
         .set('content-type', 'application/json')
         .set('Accept', 'application/json');
     return this.httpClient.put<any>(`${this.AUTH_SERVER}/${url}`, data, { headers });
+  }
+
+  updateByJson(url: string, data: any) {
+    const headers = new HttpHeaders()
+        .set('content-type', 'application/json')
+        .set('Accept', 'application/json');
+    return this.httpClient.post<any>(`${this.AUTH_SERVER}/${url}`, data, { headers });
   }
 }

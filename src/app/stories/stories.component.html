@@ -1,9 +1,13 @@
 <br/>
-<button class="btn btn-success" [routerLink]="'story'">Create New Story</button>
+<button class="btn btn-success" (click)="addStory()">Create New Story</button>
 <br/><br/>
 <div class="row">
   <div class="col-md-4" *ngFor="let value of data">
-    <a [routerLink]="value._id" class="text-decoration-none">
+    <div class="card-header">
+      {{value.storyName}}
+<button class="btn btn-success" (click)="editStory(value)">Edit</button>
+    </div>
+    <!-- <a [routerLink]="value._id" class="text-decoration-none"> -->
       <div class="card">
         <div class="card-header">
           <audio controls>
@@ -12,11 +16,11 @@
           </audio>
         </div>
         <div class="card-body">
-          <h5 class="card-title">{{value.storyName}}</h5>
+          <!-- <h5 class="card-title">{{value.storyName}}</h5> -->
           <p class="card-text">{{value.storyDesc}}</p>
           <p class="card-text">Credits: {{value.credits}}</p>
         </div>
       </div>
-    </a>
+    <!-- </a> -->
   </div>
 </div>

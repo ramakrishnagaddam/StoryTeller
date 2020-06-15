@@ -1,12 +1,17 @@
+
 <br/>
-<button class="btn btn-success" [routerLink]="'volume'">Create New Volume</button>
+<button class="btn btn-success" (click)="addVolume()">Create New Volume</button>
 <br/><br/>
 <div class="row">
   <div class="col-md-4" *ngFor="let value of data">
+    <div class="card-header">
+      {{value.volumeName}}
+<button class="btn btn-success" (click)="editVolume(value)">Edit</button>
+    </div>
     <a [routerLink]="value._id" class="text-decoration-none">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">{{value.volumeName}}</h5>
+          <!-- <h5 class="card-title">{{value.volumeName}}</h5> -->
           <p class="card-text">{{value.currency}} {{value.cost}}</p>
           <p class="card-text">Number of Stories: {{value.stories.length}}</p>
         </div>

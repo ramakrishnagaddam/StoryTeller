@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Location } from '@angular/common';
 import { CommonApiService } from '../../common-api.service';
+import {CommonObjectService} from '../../common/commonObject.service';
 
 @Component({
   selector: 'app-create',
@@ -10,16 +11,24 @@ import { CommonApiService } from '../../common-api.service';
 })
 export class CreateComponent implements OnInit {
 
+  formDataObj:any;
   categoryForm: FormGroup;
   image;
-  constructor(private api: CommonApiService, private location: Location) { }
+  formTitle :string;
+  constructor(private api: CommonApiService, private location: Location, private commonObjectServiceObject: CommonObjectService) { }
 
   ngOnInit(): void {
+    this.formDataObj = this.commonObjectServiceObject.data;
+    this.formTitle = "Create New Category";
+    if(this.formDataObj) {
+      this.formTitle = "Edit " + this.formDataObj['categoryName'];
+    }
     this.categoryForm = new FormGroup({
-      categoryName: new FormControl(),
-      subtitle: new FormControl(),
-      categoryDesc: new FormControl()
+      categoryName: new FormControl(this.formDataObj?this.formDataObj['categoryName']:''),
+      subtitle: new FormControl(this.formDataObj?this.formDataObj['subtitle']:''),
+      categoryDesc: new FormControl(this.formDataObj?this.formDataObj['categoryDesc']:'')
     });
+
   }
 
   selectedImage(event) {
@@ -35,17 +44,34 @@ export class CreateComponent implements OnInit {
     formData.append('subtitle', this.categoryForm.get('subtitle').value);
     formData.append('categoryDesc', this.categoryForm.get('categoryDesc').value);
     formData.append('categoryImageURL', this.image);
-    this.api.create('category', formData).subscribe(
-      data => {
-        alert("Successfully Created Category!");
-        console.log(data);
-        this.location.back();
-      },
-      error => {
-        alert("Unable Create Story. Please contact admin!");
-        console.log(error);
-
-      }
-    );
+console.log(formData);
+    if(this.formDataObj) {
+      formData.append('_id', this.formDataObj['_id']);
+      this.api.update('category', formData).subscribe(
+        data => {
+          alert("Successfully Updated Category!");
+          console.log(data);
+          this.location.back();
+        },
+        error => {
+          alert("Unable Create Story. Please contact admin!");
+          console.log(error);
+  
+        }
+      );
+      } else {
+      this.api.create('category', formData).subscribe(
+        data => {
+          alert("Successfully Created Category!");
+          console.log(data);
+          this.location.back();
+        },
+        error => {
+          alert("Unable Create Story. Please contact admin!");
+          console.log(error);
+  
+        }
+      );
+    }
   }
 }
