@@ -11,22 +11,22 @@ import {CommonObjectService} from '../../common/commonObject.service';
 })
 export class CreateComponent implements OnInit {
 
-  formData:any;
+  formDataObj:any;
   categoryForm: FormGroup;
   image;
   formTitle :string;
   constructor(private api: CommonApiService, private location: Location, private commonObjectServiceObject: CommonObjectService) { }
 
   ngOnInit(): void {
-    this.formData = this.commonObjectServiceObject.data;
+    this.formDataObj = this.commonObjectServiceObject.data;
     this.formTitle = "Create New Category";
-    if(this.formData) {
-      this.formTitle = "Edit " + this.formData['categoryName'];
+    if(this.formDataObj) {
+      this.formTitle = "Edit " + this.formDataObj['categoryName'];
     }
     this.categoryForm = new FormGroup({
-      categoryName: new FormControl(this.formData?this.formData['categoryName']:''),
-      subtitle: new FormControl(this.formData?this.formData['subtitle']:''),
-      categoryDesc: new FormControl(this.formData?this.formData['categoryDesc']:'')
+      categoryName: new FormControl(this.formDataObj?this.formDataObj['categoryName']:''),
+      subtitle: new FormControl(this.formDataObj?this.formDataObj['subtitle']:''),
+      categoryDesc: new FormControl(this.formDataObj?this.formDataObj['categoryDesc']:'')
     });
 
   }
@@ -45,7 +45,8 @@ export class CreateComponent implements OnInit {
     formData.append('categoryDesc', this.categoryForm.get('categoryDesc').value);
     formData.append('categoryImageURL', this.image);
 console.log(formData);
-    if(this.formData) {
+    if(this.formDataObj) {
+      formData.append('_id', this.formDataObj['_id']);
       this.api.update('category', formData).subscribe(
         data => {
           alert("Successfully Updated Category!");
