@@ -12,7 +12,7 @@ import {CommonObjectService} from '../../common/commonObject.service';
 })
 export class StoryCreateComponent implements OnInit {
 
-  formData: any;
+  formDataObj: any;
   formTitle:string;
   storyForm: FormGroup;
   audio;
@@ -21,18 +21,18 @@ export class StoryCreateComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.formData = this.commonObjectServiceObject.data;
+    this.formDataObj = this.commonObjectServiceObject.data;
     this.formTitle = 'Create New Story';
   
-    if(this.formData) {
-      this.formTitle = "Edit " + this.formData['storyName'];
+    if(this.formDataObj) {
+      this.formTitle = "Edit " + this.formDataObj['storyName'];
     }
     const volumeID = this.route.snapshot.params.volumeID;
     this.storyForm = new FormGroup({
-      storyName: new FormControl(this.formData?this.formData['storyName']:''),
-      storyDesc: new FormControl(this.formData?this.formData['storyDesc']:''),
-      credits: new FormControl(this.formData?this.formData['credits']:''),
-      duration: new FormControl(this.formData?this.formData['duration']:''),
+      storyName: new FormControl(this.formDataObj?this.formDataObj['storyName']:''),
+      storyDesc: new FormControl(this.formDataObj?this.formDataObj['storyDesc']:''),
+      credits: new FormControl(this.formDataObj?this.formDataObj['credits']:''),
+      duration: new FormControl(this.formDataObj?this.formDataObj['duration']:''),
       volume: new FormControl(volumeID)
     });
   }
@@ -53,10 +53,11 @@ export class StoryCreateComponent implements OnInit {
     formData.append('volume', this.storyForm.get('volume').value);
     formData.append('storyURL', this.audio);
 
-    if(this.formData) {
+    if(this.formDataObj) {
+      formData.append('_id', this.formDataObj['_id']);
       this.api.update('stories', formData).subscribe(
         data => {
-          alert('Successfully Created!');
+          alert('Successfully Updated Story!');
           console.log(data);
           this.location.back();
         },
@@ -69,7 +70,7 @@ export class StoryCreateComponent implements OnInit {
     } else {
       this.api.create('stories', formData).subscribe(
         data => {
-          alert('Successfully Created!');
+          alert('Successfully Created Story!');
           console.log(data);
           this.location.back();
         },
