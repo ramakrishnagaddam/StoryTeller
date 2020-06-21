@@ -1,0 +1,11 @@
+<br>
+<div class="container">
+    <button class="btn btn-success" (click)="addUpcoming()">Add Upcoming Event</button>
+    <div class="card" *ngFor="let value of data">
+        <div class="card-body">
+          <p class="card-text">{{value.upcoming_event}}</p>
+          <p class="card-text">{{value.fromDate | date: 'dd-MMMM-yyyy'}} to {{value.toDate | date: 'dd-MMMM-yyyy'}}</p>
+          <p class="card-text"></p>
+        </div>
+    </div>
+</div> 

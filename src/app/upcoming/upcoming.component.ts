@@ -2,31 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { CommonApiService } from '../common-api.service';
 import { environment } from '../../environments/environment';
 import { Router } from "@angular/router";
-import {CommonObjectService} from '../common/commonObject.service';
+import { CommonObjectService } from '../common/commonObject.service';
 
 @Component({
-  selector: 'app-category',
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.css']
+  selector: 'app-upcoming',
+  templateUrl: './upcoming.component.html',
+  styleUrls: ['./upcoming.component.css']
 })
-export class CategoryComponent implements OnInit {
+export class UpcomingComponent implements OnInit {
 
   data: any;
   apiURL: string = environment.API;
   constructor(private api:CommonApiService, private commonObjectServiceObject:CommonObjectService, private router: Router) { }
 
-  editCategory(formData) {
-    this.commonObjectServiceObject.data = formData;
-    this.router.navigate(['category']);
-  }
-
-  addCategory() {
-    this.commonObjectServiceObject.data = null;
-    this.router.navigate(['category']);
-  }
-  
   ngOnInit(): void {
-    this.api.fetch('category').subscribe(
+    this.api.fetch('upcoming').subscribe(
       data => {
         this.data = data;
       },
@@ -34,6 +24,16 @@ export class CategoryComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  addUpcoming() {
+    this.commonObjectServiceObject.data = null;
+    this.router.navigate(['upcoming/create']);
+  }
+
+  editCategory(formData) {
+    this.commonObjectServiceObject.data = formData;
+    this.router.navigate(['upcoming/create']);
   }
 
 }

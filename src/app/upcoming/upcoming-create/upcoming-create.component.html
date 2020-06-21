@@ -1,0 +1,32 @@
+
+<div class="container-fluid">
+  
+    <h2>{{formTitle}}</h2>
+    <br>
+    <form [formGroup]="upcomingForm">
+      <div class="form-group row">
+        <label for="categoryName" class="col-sm-2 col-form-label">Event Details</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="categoryName" placeholder="Event Details" formControlName="upcoming_event">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="fromDate" class="col-sm-2 col-form-label">Start Date</label>
+        <div class="col-sm-10">
+          <input type="date" class="form-control" id="fromDate" formControlName="fromDate">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="toDate" class="col-sm-2 col-form-label">End Date</label>
+        <div class="col-sm-10">
+          <input type="date" class="form-control" id="toDate" formControlName="toDate">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <button type="submit" class="btn btn-success" (click)="onSubmit()"> Save</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  
