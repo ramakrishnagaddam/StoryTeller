@@ -39,15 +39,25 @@ export class VolumeCreateComponent implements OnInit {
   onSubmit() {
     console.log(this.volumeForm.value);
     if(this.formData) {
-      this.api.updateByJson('volume', this.volumeForm.value).subscribe(
+      console.log(this.formData);
+      const volumeUpdate = {
+        "_id": this.formData._id,
+        "volumeName": this.volumeForm.value.volumeName,
+        "currency": this.volumeForm.value.currency,
+        "cost": this.volumeForm.value.cost,
+        "category": this.formData.category
+      };
+      console.log(volumeUpdate);
+      
+      this.api.updateByJson('volume', volumeUpdate).subscribe(
         data => {
           alert('Successfully Created!');
           console.log(data);
+          this.location.back();
         },
         error => {
           alert('Unable Create Volume. Please contact admin!');
           console.log(error);
-  
         }
       );
 
@@ -56,6 +66,7 @@ export class VolumeCreateComponent implements OnInit {
         data => {
           alert('Successfully Created!');
           console.log(data);
+          this.location.back();
         },
         error => {
           alert('Unable Create Volume. Please contact admin!');
