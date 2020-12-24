@@ -44,9 +44,10 @@ export class CreateComponent implements OnInit {
     formData.append('subtitle', this.categoryForm.get('subtitle').value);
     formData.append('categoryDesc', this.categoryForm.get('categoryDesc').value);
     formData.append('categoryImageURL', this.image);
-console.log(formData);
+    console.log(formData);
     if(this.formDataObj) {
       formData.append('_id', this.formDataObj['_id']);
+      console.log(formData);
       this.api.update('category', formData).subscribe(
         data => {
           alert("Successfully Updated Category!");

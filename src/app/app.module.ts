@@ -14,6 +14,7 @@ import { VolumeCreateComponent } from './volume/volume-create/volume-create.comp
 import { StoryCreateComponent } from './stories/story-create/story-create.component';
 import { UpcomingComponent } from './upcoming/upcoming.component';
 import { UpcomingCreateComponent } from './upcoming/upcoming-create/upcoming-create.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { UpcomingCreateComponent } from './upcoming/upcoming-create/upcoming-cre
     VolumeCreateComponent,
     StoryCreateComponent,
     UpcomingComponent,
-    UpcomingCreateComponent
+    UpcomingCreateComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
